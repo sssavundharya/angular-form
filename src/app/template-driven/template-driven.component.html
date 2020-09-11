@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="jumbotron">
+        <form #frm="ngForm" (ngSubmit)="addUser(frm)">
+            <div class="form-group">
+                <label>name</label>
+                <input type="text" class="form-control" ngModel #nameUser="ngModel" name="name" required pattern="^[a-zA-Z]+" />
+            </div>
+            <div class="alert alert-danger" *ngIf="nameUser?.touched">
+                <div *ngIf="nameUser.errors?.required">
+                    Name is required
+                </div>
+                <div *ngIf="nameUser.errors?.pattern">
+                    Invalid name!
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>contact</label>
+                <input type="text" class="form-control" ngModel #contactUser="ngModel" name="contact" minlength="10"  maxlength="10"  required pattern="^[0-9]*$" />
+            </div>
+            <div class="alert alert-danger" *ngIf="contactUser?.touched">
+                <div *ngIf="contactUser.errors?.required">
+                    Contact is required
+                </div>
+                <div *ngIf="contactUser.errors?.pattern ||contactUser.errors?.minlength">
+                    Invalid contact!
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" ngModel #emailUser="ngModel" name="email" required
+                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+            </div>
+            <div class="alert alert-danger" *ngIf="emailUser?.touched">
+                <div *ngIf="emailUser.errors?.required">
+                    email is required
+                </div>
+                <div *ngIf="emailUser.errors?.pattern">
+                    Invalid email!
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success" [disabled]="frm.invalid">Add user</button>
+        </form>
+    </div>
+    <hr/>
+    <ul class="list-group">
+        <li class="list-group-item" *ngFor="let user of userList">
+            {{user?.name}}
+        </li>
+    </ul>
+</div>
